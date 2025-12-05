@@ -1,0 +1,305 @@
+
+# ========================================
+# Environment Variables
+# ========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Keep .env.example for documentation
+!.env.example
+
+# ========================================
+# Node.js / NPM (Backend NestJS + Frontend React)
+# ========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager lock files (uncomment if needed)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Logs
+logs/
+*.log
+
+# Testing
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.eslintcache
+.stylelintcache
+
+# Temporary files
+.temp/
+tmp/
+*.tmp
+
+# ========================================
+# Python (Python Service)
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Python distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.manifest
+*.spec
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# ========================================
+# Go (Go Worker)
+# ========================================
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Vendor directory
+vendor/
+
+# ========================================
+# Docker
+# ========================================
+*.log
+docker-compose.override.yml
+
+# Docker volumes data (local dev)
+data/
+volumes/
+
+# ========================================
+# IDEs and Editors
+# ========================================
+# VSCode
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json.example
+
+# JetBrains (IntelliJ, PyCharm, WebStorm, GoLand)
+../.idea/
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+.*.sw[a-z]
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ========================================
+# Operating System
+# ========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ========================================
+# Database
+# ========================================
+# MongoDB data (if running locally)
+data/db/
+mongo-data/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# ========================================
+# Security & Credentials
+# ========================================
+# SSH keys
+*.pem
+*.key
+*.cert
+*.crt
+
+# Secrets
+secrets/
+.secrets/
+credentials.json
+
+# ========================================
+# Build & Compilation
+# ========================================
+*.o
+*.a
+*.obj
+*.lib
+*.lo
+*.la
+*.al
+*.so
+*.dll
+*.dylib
+
+# ========================================
+# Misc
+# ========================================
+# PID files
+*.pid
+*.seed
+*.pid.lock
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Documentation builds
+docs/_build/
+site/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional REPL history
+.node_repl_history
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ========================================
+# Project Specific
+# ========================================
+# Temporary test files
+test-output/
+*.test.js
+
+# Generated files
+generated/
+
+# User uploads (if any)
+uploads/
+public/uploads/
+
+# ========================================
+# Keep Important Files
+# ========================================
+# Keep README files
+!README.md
+!*/README.md
+
+# Keep Dockerfiles
+!Dockerfile
+!*/Dockerfile
+!docker-compose.yml
+
+# Keep example configs
+!*.example
+!*.sample
+
+# Keep GitHub workflows (if any)
+!.github/
+
+# ========================================
+# End of .gitignore
+# ========================================
+
