@@ -1,11 +1,24 @@
-import { api } from './api';
-import { User, CreateUserRequest, UpdateUserRequest, LoginRequest, LoginResponse } from '@/types/user';
+import {api} from './api';
+import {CreateUserRequest, LoginRequest, LoginResponse, UpdateUserRequest, User} from '@/types/user';
 
 export const userService = {
   // Authentication
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post('/auth/login', credentials);
-    return response.data;
+
+    // Adapt backend response to frontend format
+    // Backend returns: { access_token, user: { _id, ... } }
+    // Frontend expects: { token, user: { id, token, ... } }
+    return {
+      token: response.data.access_token,
+      user: {
+        id: response.data.user._id,
+        name: response.data.user.name,
+        email: response.data.user.email,
+        role: response.data.user.role,
+        token: response.data.access_token,
+      }
+    };
   },
 
   async logout(): Promise<void> {
