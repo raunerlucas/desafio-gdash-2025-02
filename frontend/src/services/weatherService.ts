@@ -101,7 +101,7 @@ export const weatherService = {
   },
 
   // Helper methods
-  private getInsightType(recommendation: string): 'alert' | 'info' | 'warning' {
+  getInsightType(recommendation: string): 'alert' | 'info' | 'warning' {
     const lowerRec = recommendation.toLowerCase();
     if (lowerRec.includes('extremo') || lowerRec.includes('alto') || lowerRec.includes('cuidado')) {
       return 'alert';
@@ -112,7 +112,7 @@ export const weatherService = {
     return 'info';
   },
 
-  private getInsightTitle(recommendation: string): string {
+  getInsightTitle(recommendation: string): string {
     const lowerRec = recommendation.toLowerCase();
     if (lowerRec.includes('temperatura')) return 'Alerta de Temperatura';
     if (lowerRec.includes('umidade')) return 'Condição de Umidade';
@@ -121,10 +121,10 @@ export const weatherService = {
     return 'Insight Climático';
   },
 
-  private getInsightSeverity(recommendation: string): 'low' | 'medium' | 'high' {
+  getInsightSeverity(recommendation: string): 'low' | 'medium' | 'high' {
     const lowerRec = recommendation.toLowerCase();
     if (lowerRec.includes('extremo') || lowerRec.includes('alto')) return 'high';
     if (lowerRec.includes('atenção') || lowerRec.includes('recomenda')) return 'medium';
     return 'low';
   },
-}
+};

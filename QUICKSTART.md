@@ -264,11 +264,6 @@ backend/API_DOCS.md     # Documentação da API
 
 ### Documentação Completa
 ```bash
-# Ver análise completa
-cat COMPLETE_ANALYSIS.md
-
-# Ver correções
-cat FIXES_SUMMARY.md
 
 # Ver testes
 cat TESTING_GUIDE.md
