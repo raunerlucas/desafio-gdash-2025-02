@@ -1,9 +1,9 @@
-import { Injectable, ConflictException, NotFoundException, OnModuleInit } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {ConflictException, Injectable, NotFoundException, OnModuleInit} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
 import * as bcrypt from 'bcryptjs';
-import { User, UserDocument } from './user.schema';
-import { CreateUserDto, UpdateUserDto, UserResponseDto } from './dto/user.dto';
+import {User, UserDocument} from './user.schema';
+import {CreateUserDto, UpdateUserDto, UserResponseDto} from './dto/user.dto';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -16,8 +16,8 @@ export class UsersService implements OnModuleInit {
   }
 
   private async createDefaultAdmin() {
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
-    const adminPassword = process.env.ADMIN_PASSWORD || '123456';
+    const adminEmail = process.env.DEFAULT_USER_EMAIL || 'admin@gdash.com';
+    const adminPassword = process.env.DEFAULT_USER_PASSWORD || 'admin123';
 
     const existingAdmin = await this.userModel.findOne({ email: adminEmail });
     if (!existingAdmin) {
@@ -25,10 +25,12 @@ export class UsersService implements OnModuleInit {
       await this.userModel.create({
         email: adminEmail,
         password: hashedPassword,
-        name: 'Admin',
+        name: 'Administrator',
         role: 'admin',
       });
-      console.log(`Default admin user created: ${adminEmail}`);
+      console.log(`✅ Default admin user created: ${adminEmail}`);
+    } else {
+      console.log(`ℹ️  Admin user already exists: ${adminEmail}`);
     }
   }
 

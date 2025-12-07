@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 	"time"
@@ -18,10 +19,22 @@ type Config struct {
 
 // Load carrega as configurações das variáveis de ambiente
 func Load() *Config {
+	// Build RabbitMQ URL from components
+	rabbitmqHost := getEnv("RABBITMQ_HOST", "rabbitmq")
+	rabbitmqPort := getEnv("RABBITMQ_PORT", "5672")
+	rabbitmqUser := getEnv("RABBITMQ_USER", "admin")
+	rabbitmqPassword := getEnv("RABBITMQ_PASSWORD", "admin123")
+	rabbitmqURL := fmt.Sprintf("amqp://%s:%s@%s:%s/", rabbitmqUser, rabbitmqPassword, rabbitmqHost, rabbitmqPort)
+
+	// Build NestJS API URL
+	backendAPIURL := getEnv("BACKEND_API_URL", "http://backend:3000")
+	backendAPIEndpoint := getEnv("BACKEND_API_ENDPOINT", "/api/weather/logs")
+	fullAPIURL := backendAPIURL + backendAPIEndpoint
+
 	return &Config{
-		RabbitMQURL:       getEnv("RABBITMQ_URL", "amqp://guest:guest@rabbitmq:5672/"),
-		NestJSAPIURL:      getEnv("NESTJS_API_URL", "http://nestjs-api:3000"),
-		QueueName:         getEnv("QUEUE_NAME", "weather_queue"),
+		RabbitMQURL:       rabbitmqURL,
+		NestJSAPIURL:      fullAPIURL,
+		QueueName:         getEnv("RABBITMQ_QUEUE", "weather_data"),
 		WorkerConcurrency: getEnvAsInt("WORKER_CONCURRENCY", 5),
 		MaxRetryAttempts:  getEnvAsInt("MAX_RETRY_ATTEMPTS", 3),
 		RetryDelay:        getEnvAsDuration("RETRY_DELAY", 2*time.Second),

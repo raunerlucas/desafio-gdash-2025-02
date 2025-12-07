@@ -367,5 +367,158 @@ O Pull Request deve conter:
 
 ---
 
+## 🧪 Como Executar e Testar o Sistema
+
+### 📋 Pré-requisitos
+
+- **Docker** e **Docker Compose** instalados
+- **Git** para clonar o repositório
+- Portas livres: `3000`, `5173`, `27017`, `5672`, `15672`
+
+### 🚀 Início Rápido (5 minutos)
+
+```bash
+# 1. Clone o repositório
+git clone <url-do-repositorio>
+cd desafio-gdash-2025-02
+
+# 2. Configure variáveis de ambiente
+cp .env.example .env
+# Os valores padrão já funcionam perfeitamente
+
+# 3. Suba todos os serviços
+docker-compose up -d
+
+# 4. Aguarde 2-3 minutos para inicialização
+# 5. Acesse http://localhost:5173
+# 6. Login: admin@gdash.com / admin123
+```
+
+### 🌐 URLs de Acesso
+
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:3000
+- **RabbitMQ Management**: http://localhost:15672 (admin/admin123)
+- **Documentação de Testes**: [TESTING_GUIDE.md](./TESTING_GUIDE.md)
+
+### 🔧 Credenciais Padrão
+
+- **Email**: `admin@gdash.com`
+- **Senha**: `admin123`
+
+### ✅ Validação Rápida
+
+1. ✅ Acesse http://localhost:5173 e faça login
+2. ✅ Observe dados climáticos no dashboard
+3. ✅ Teste exportação CSV/XLSX
+4. ✅ Navegue para "Usuários" e "Explorar"
+5. ✅ Verifique logs: `docker-compose logs -f`
+
+### 📊 Pipeline de Dados
+
+```
+Python Service → RabbitMQ → Go Worker → NestJS API → MongoDB → React Frontend
+```
+
+**Fluxo:**
+1. 🐍 Python coleta dados da API Open-Meteo
+2. 🐰 Envia para fila RabbitMQ
+3. 🐹 Go Worker processa mensagens
+4. 🔧 API NestJS armazena no MongoDB
+5. 🌐 Frontend React exibe dados
+6. 🧠 IA gera insights automaticamente
+
+### 🛠️ Desenvolvimento Individual
+
+#### Backend (NestJS)
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run start:dev
+# API: http://localhost:3000
+```
+
+#### Frontend (React)
+```bash
+cd frontend
+npm install
+npm run dev
+# App: http://localhost:5173
+```
+
+#### Go Worker
+```bash
+cd go-worker
+go mod tidy
+make test
+make run
+```
+
+#### Python Service
+```bash
+cd python-service
+pip install -r requirements.txt
+python main.py
+```
+
+### 📋 Checklist de Funcionalidades
+
+- [x] ✅ Python coleta dados climáticos (Open-Meteo)
+- [x] ✅ RabbitMQ processa mensagens
+- [x] ✅ Go Worker valida e envia dados
+- [x] ✅ API NestJS armazena no MongoDB
+- [x] ✅ Frontend React + Tailwind + shadcn/ui
+- [x] ✅ Dashboard com dados reais
+- [x] ✅ Insights de IA baseados nos dados
+- [x] ✅ Exportação CSV/XLSX
+- [x] ✅ CRUD de usuários + autenticação JWT
+- [x] ✅ Integração PokéAPI (paginada)
+- [x] ✅ Docker Compose completo
+- [x] ✅ Logging estruturado
+- [x] ✅ Tratamento de erros
+
+### 🎯 Principais Decisões Técnicas
+
+1. **Open-Meteo API**: Escolhida por não precisar de chave e ser confiável
+2. **JWT Authentication**: Segurança robusta com tokens
+3. **MongoDB**: Flexibilidade para dados climáticos
+4. **RabbitMQ**: Garantia de entrega de mensagens
+5. **TypeScript**: Tipagem forte em todo o stack
+6. **shadcn/ui**: Componentes modernos e acessíveis
+7. **Recharts**: Visualização de dados interativa
+
+### 🧠 Insights de IA Implementados
+
+- 📊 Análise estatística (médias, máximos, mínimos)
+- 📈 Detecção de tendências de temperatura
+- 🌡️ Alertas baseados em thresholds
+- 💡 Recomendações contextuais
+- 📝 Geração automática de relatórios
+
+### 🔍 Arquitetura
+
+```
+┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│   Python    │───▶│   RabbitMQ   │───▶│  Go Worker  │
+│  Collector  │    │   Message    │    │  Processor  │
+└─────────────┘    │   Broker     │    └─────────────┘
+                   └──────────────┘           │
+                                              ▼
+┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│   React     │◀───│   NestJS     │───▶│   MongoDB   │
+│  Frontend   │    │   Backend    │    │  Database   │
+└─────────────┘    └──────────────┘    └─────────────┘
+```
+
+### 📱 Screenshots das Telas
+
+- 🔐 **Login**: Interface limpa com validação
+- 📊 **Dashboard**: Cards + gráficos + insights
+- 👥 **Usuários**: CRUD completo em tabela
+- 🐾 **Explorar**: Grid Pokemon com paginação
+
+---
+
 Boa sorte! 🚀  
 Mostre sua capacidade de integrar múltiplas linguagens e serviços em uma aplicação moderna, escalável e inteligente — unindo **engenharia de dados**, **backend**, **frontend** e **IA aplicada**.

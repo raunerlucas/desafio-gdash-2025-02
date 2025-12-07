@@ -1,22 +1,40 @@
 export interface WeatherData {
-  id: string;
-  timestamp: Date;
+  _id: string;
   location: string;
   temperature: number;
   humidity: number;
-  windSpeed: number;
-  condition: string;
-  pressure?: number;
+  pressure: number;
+  description?: string;
+  windSpeed?: number;
+  windDirection?: string;
   visibility?: number;
+  uvIndex?: number;
+  timestamp: string;
+  source?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export interface WeatherForecast {
-  date: string;
-  temperature: number;
-  condition: string;
-  humidity: number;
-  windSpeed: number;
-  rainProbability?: number;
+export interface WeatherLogsResponse {
+  data: WeatherData[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
+export interface WeatherInsightData {
+  averageTemperature: number;
+  maxTemperature: number;
+  minTemperature: number;
+  averageHumidity: number;
+  averagePressure: number;
+  totalRecords: number;
+  dateRange: {
+    start: string;
+    end: string;
+  };
+  temperatureTrend: 'rising' | 'falling' | 'stable';
+  recommendations: string[];
 }
 
 export interface AIInsight {
@@ -25,5 +43,13 @@ export interface AIInsight {
   title: string;
   message: string;
   timestamp: Date;
-  severity?: 'low' | 'medium' | 'high';
+  severity: 'low' | 'medium' | 'high';
+}
+
+export interface ChartDataPoint {
+  time: string;
+  temperature: number;
+  humidity: number;
+  windSpeed?: number;
+  pressure?: number;
 }

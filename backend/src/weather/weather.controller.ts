@@ -1,23 +1,14 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Query,
-  UseGuards,
-  Res,
-} from '@nestjs/common';
-import { Response } from 'express';
-import { WeatherService } from './weather.service';
-import { CreateWeatherLogDto, WeatherQueryDto } from './dto/weather.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import {Body, Controller, Get, Post, Query, Res, UseGuards,} from '@nestjs/common';
+import {Response} from 'express';
+import {WeatherService} from './weather.service';
+import {CreateWeatherLogDto, WeatherQueryDto} from './dto/weather.dto';
+import {JwtAuthGuard} from '../auth/jwt-auth.guard';
 
 @Controller('weather')
 export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}
 
   @Post('logs')
-  @UseGuards(JwtAuthGuard)
   create(@Body() createWeatherLogDto: CreateWeatherLogDto) {
     return this.weatherService.create(createWeatherLogDto);
   }

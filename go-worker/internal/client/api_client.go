@@ -63,7 +63,7 @@ func (c *APIClient) SendWeatherLog(log models.WeatherLog) error {
 }
 
 func (c *APIClient) sendRequest(log models.WeatherLog, attempt int) error {
-	endpoint := fmt.Sprintf("%s/api/weather/logs", c.baseURL)
+	endpoint := c.baseURL
 
 	// Serializa o payload
 	payload, err := json.Marshal(log)

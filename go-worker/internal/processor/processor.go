@@ -28,8 +28,9 @@ func (p *Processor) Process(messageBody []byte) error {
 		return fmt.Errorf("erro ao deserializar mensagem: %w", err)
 	}
 
-	log.Printf("[INFO] Mensagem recebida: location=%s, temperature=%.1f, humidity=%.1f",
-		weatherMsg.Location, weatherMsg.Temperature, weatherMsg.Humidity)
+	log.Printf("[INFO] Mensagem recebida: location=%.2f,%.2f, temperature=%.1f, humidity=%.1f",
+		weatherMsg.Location.Latitude, weatherMsg.Location.Longitude,
+		weatherMsg.Current.Temperature, weatherMsg.Current.Humidity)
 
 	// Valida os dados
 	if err := weatherMsg.Validate(); err != nil {
