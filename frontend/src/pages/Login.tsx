@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { CloudSun, Loader2 } from 'lucide-react';
+import React, {useState} from 'react';
+import {useAuth} from '@/contexts/AuthContext';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {Card} from '@/components/ui/card';
+import {CloudSun, Loader2} from 'lucide-react';
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -115,7 +115,7 @@ const Login: React.FC = () => {
         {/* Demo Credentials */}
         <div className="text-center text-sm text-gray-500 border-t pt-4">
           <p className="mb-2">Credenciais de demonstração:</p>
-          <p>Email: admin@weather.com</p>
+          <p>Email: admin@gdash</p>
           <p>Senha: admin123</p>
         </div>
       </Card>
