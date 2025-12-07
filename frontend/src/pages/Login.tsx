@@ -115,7 +115,7 @@ const Login: React.FC = () => {
         {/* Demo Credentials */}
         <div className="text-center text-sm text-gray-500 border-t pt-4">
           <p className="mb-2">Credenciais de demonstração:</p>
-          <p>Email: admin@gdash</p>
+          <p>Email: admin@gdash.com</p>
           <p>Senha: admin123</p>
         </div>
       </Card>
