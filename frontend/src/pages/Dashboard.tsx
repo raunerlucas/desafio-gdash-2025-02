@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { weatherService } from '@/services/weatherService';
-import { WeatherData, AIInsight } from '@/types/weather';
+import React, {useEffect, useState} from 'react';
+import {Card} from '@/components/ui/card';
+import {Button} from '@/components/ui/button';
+import {weatherService} from '@/services/weatherService';
+import {AIInsight, WeatherData} from '@/types/weather';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
+    Area,
+    AreaChart,
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
 } from 'recharts';
 import {
-  Thermometer,
-  Droplets,
-  Wind,
-  Cloud,
-  Download,
-  AlertTriangle,
-  Info,
-  TrendingUp,
-  Calendar,
-  MapPin,
+    AlertTriangle,
+    Calendar,
+    Cloud,
+    Download,
+    Droplets,
+    Info,
+    MapPin,
+    Thermometer,
+    TrendingUp,
+    Wind,
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
@@ -42,18 +42,43 @@ const Dashboard: React.FC = () => {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
+      setError('');
+
       const [currentData, historyData, insightsData] = await Promise.all([
         weatherService.getCurrentWeather(),
         weatherService.getWeatherHistory(24), // Last 24 records
         weatherService.getAIInsights(),
       ]);
 
+      console.log('📊 Dashboard data loaded:', {
+        currentData,
+        historyCount: historyData?.length,
+        insightsCount: insightsData?.length
+      });
+
       setCurrentWeather(currentData);
-      setWeatherHistory(historyData);
-      setAiInsights(insightsData);
+      setWeatherHistory(historyData || []);
+      setAiInsights(insightsData || []);
+
     } catch (err: any) {
-      setError('Erro ao carregar dados do clima');
-      console.error('Dashboard loading error:', err);
+      console.error('❌ Dashboard loading error:', err);
+      console.error('Error details:', {
+        status: err.response?.status,
+        statusText: err.response?.statusText,
+        data: err.response?.data,
+        message: err.message
+      });
+
+      // Se não houver dados, mostrar mensagem informativa
+      if (err.response?.status === 404) {
+        setError('⏳ Aguardando primeira coleta de dados climáticos. O Python Service coleta dados a cada hora.');
+      } else if (err.response?.status === 401) {
+        setError('🔒 Sessão expirada. Por favor, faça login novamente.');
+      } else if (err.code === 'ECONNABORTED' || err.message === 'Request aborted') {
+        setError('⏱️ Tempo de requisição esgotado. Tente novamente.');
+      } else {
+        setError('⚠️ Erro ao carregar dados. Verifique o console (F12) para mais detalhes.');
+      }
     } finally {
       setLoading(false);
     }
@@ -94,9 +119,9 @@ const Dashboard: React.FC = () => {
   const formatChartData = (data: WeatherData[]) => {
     return data.map(item => ({
       time: new Date(item.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-      temperature: item.temperature,
-      humidity: item.humidity,
-      windSpeed: item.windSpeed,
+      temperature: item.temperature || 0,
+      humidity: item.humidity || 0,
+      windSpeed: item.windSpeed || 0,
     }));
   };
 
@@ -186,7 +211,7 @@ const Dashboard: React.FC = () => {
               <div>
                 <p className="text-sm font-medium text-gray-600">Vento</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {currentWeather.windSpeed} km/h
+                  {currentWeather.windSpeed || 0} km/h
                 </p>
               </div>
               <Wind className="h-12 w-12 text-gray-500" />
@@ -196,9 +221,9 @@ const Dashboard: React.FC = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Condição</p>
-                <p className="text-lg font-bold text-gray-900 capitalize">
-                  {currentWeather.condition}
+                <p className="text-sm font-medium text-gray-600">Pressão</p>
+                <p className="text-3xl font-bold text-gray-900">
+                  {currentWeather.pressure} hPa
                 </p>
                 <p className="text-xs text-gray-500 flex items-center mt-1">
                   <MapPin className="h-3 w-3 mr-1" />

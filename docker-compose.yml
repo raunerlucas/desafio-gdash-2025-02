@@ -123,7 +123,7 @@ services:
       rabbitmq:
         condition: service_healthy
       backend:
-        condition: service_started
+        condition: service_healthy
     volumes:
       - ./go-worker:/app
     networks:
